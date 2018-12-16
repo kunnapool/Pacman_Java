@@ -55,13 +55,14 @@ public class Game extends Canvas implements Runnable {
 		setPreferredSize(d);
 		
 		
-		requestFocus();
+		
 		game_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game_frame.add(this); //show this game to the frame
 		game_frame.setResizable(false);
 		game_frame.pack();
 		game_frame.setVisible(true);
 		game_frame.setLocationRelativeTo(null); //center
+		requestFocus();
 		addKeyListener(key_presses);
 
 		startThread(); // --> this inturn call thread.start which calls runGame()
@@ -134,19 +135,20 @@ public class Game extends Canvas implements Runnable {
 	 */
 	public void updateLogic()
 	{
-		//System.out.println(x);
+		
+		
 		flag=!flag;
 		key_presses.update();
 		
 		
-		if(key_presses.up && y>=1)
-			y--;
-		if(key_presses.down)
-			y++;
-		if(key_presses.left && x>=1)
-			x--;
-		if(key_presses.right)
-			x++;
+		if(key_presses.up && y>=5)
+			y-=5;
+		if(key_presses.down && y<game_height-16-5)
+			y+=5;
+		if(key_presses.left && x>=5)
+			x-=5;
+		if(key_presses.right && x<game_width-16-5)
+			x+=5;
 		
 		
 		
@@ -170,8 +172,10 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		
-		screen.renderBackground();
+		screen.clearScreen();
 		Sprite.spriteRender(x, y, screen, flag );
+		screen.renderBackground();
+		
 		
 		
 		for(int i=0;i<game_pixels.length;i++)

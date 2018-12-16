@@ -1,5 +1,7 @@
 package graphics;
 
+import java.util.Random;
+
 import graphics.sprites.Sprite;
 
 public class Screen {
@@ -8,6 +10,10 @@ public class Screen {
 	private int height;
 	private int width;
 	
+	private Random rand=new Random();
+	public static int pac_dots_location[];
+	
+	
 	public int screen_pixels[];
 	
 	public Screen(int width, int height)
@@ -15,6 +21,12 @@ public class Screen {
 		this.height=height;
 		this.width=width;
 		screen_pixels=new int[this.width*this.height];
+		pac_dots_location = new int[this.width*this.height];
+		
+		for(int i=0;i<pac_dots_location.length;i++)
+			pac_dots_location[i]=rand.nextInt(500);
+		
+		clearScreen();
 	}
 	
 	
@@ -27,7 +39,17 @@ public class Screen {
 		{
 			for(int x=0;x<width;x++)
 			{
-				screen_pixels[x+y*width]=0x696969;
+				if (screen_pixels[x+y*width]==0)
+					screen_pixels[x+y*width]=0x696969;
+				if(pac_dots_location[x+y*width]==1 && x+1+(y+1)*width<width*height)
+				{
+					screen_pixels[(x+1)+y*width]=0x12ff09;
+					screen_pixels[x+(y+1)*width]=0x12ff09;
+					screen_pixels[x+y*width]=0x12ff09;
+					screen_pixels[x+1+(y+1)*width]=0x12ff09;
+				}
+				
+				
 			}
 		}
 	}
@@ -65,7 +87,11 @@ public class Screen {
 
 	}
 	
-
-
-
+	public void clearScreen()
+	{
+		for(int i=0;i<screen_pixels.length;i++)
+			screen_pixels[i]=0;
+	}
+	
+	
 }

@@ -30,7 +30,8 @@ private boolean id[]=new boolean[120];
 	
 	public void keyReleased(KeyEvent e) {
 		
-				
+				right=up=left=right=false;
+				id[e.getKeyCode()]=false;
 	}
 	
 	
