@@ -10,13 +10,22 @@ public class SpriteSheet {
 	private int height, width;
 	public final int SIZE;
 	private String path;
-	
-	protected int[] sprite_sheet_pixels;
-	
+	public int[] sprite_sheet_pixels;
 	
 	
-	protected static final SpriteSheet pac1=new SpriteSheet(16,"/pac.png");
+	
+	public static final SpriteSheet pac1=new SpriteSheet(16,"/pac.png");
 	protected static final SpriteSheet pac2=new SpriteSheet(16,"/pac_open.png");
+	protected static final SpriteSheet pac3=new SpriteSheet(16,"/pac_down_closed.png");
+	protected static final SpriteSheet pac4=new SpriteSheet(16,"/pac_Down_open.png");
+	
+	protected static final SpriteSheet pac5=new SpriteSheet(16,"/pac_left_closed.png");
+	protected static final SpriteSheet pac6=new SpriteSheet(16,"/pac_left_open.png");
+	
+	public static final SpriteSheet spawn_level=new SpriteSheet(16*3,"/spawn_level.png");
+	
+	
+	
 	
 	
 	

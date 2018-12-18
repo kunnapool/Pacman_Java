@@ -8,9 +8,9 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import graphics.Screen;
+import graphics.player.Player_pacman;
 import graphics.sprites.Sprite;
 import input.Keyboard;
-
 public class Game extends Canvas implements Runnable {
 	
 	/**
@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable {
 	private JFrame game_frame;
 	private Screen screen=new Screen(game_width, game_height);
 	private Keyboard key_presses;
-	private Sprite pac;
+	Player_pacman player_pacman;
 	
 	
 	
@@ -64,6 +64,9 @@ public class Game extends Canvas implements Runnable {
 		game_frame.setLocationRelativeTo(null); //center
 		requestFocus();
 		addKeyListener(key_presses);
+		
+		
+		player_pacman=new Player_pacman(x, y, screen);
 
 		startThread(); // --> this inturn call thread.start which calls runGame()
 		
@@ -118,6 +121,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.currentTimeMillis();
 			delta+=now-last;
 			
+			//10 times a sec
 			if(delta>=100)
 			{
 				updateLogic();
@@ -130,40 +134,25 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+	
+	private boolean flip_flag=false;
 	/**
 	 * Update logic
 	 */
 	public void updateLogic()
 	{
-		
-		
-		flag=!flag;
 		key_presses.update();
-		
-		
-		if(key_presses.up && y>=5)
-			y-=5;
-		if(key_presses.down && y<game_height-16-5)
-			y+=5;
-		if(key_presses.left && x>=5)
-			x-=5;
-		if(key_presses.right && x<game_width-16-5)
-			x+=5;
-		
-		
+		player_pacman.updatePosition(key_presses);
 		
 	}
-	
-	
-	
-	private static boolean flag=false;
+
 	
 	/**
 	 * Draw things onto the screen
 	 */
 	private void renderGame() {
 	
-		/* Canva's graphic holding buffer */
+		/* Canvas' graphic holding buffer */
 		BufferStrategy graphics_buffer=getBufferStrategy();
 		
 		if (graphics_buffer==null)
@@ -172,9 +161,20 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		
+		
+		
+		
+		/* ----------------------------------------------------------------*/
+		
 		screen.clearScreen();
-		Sprite.spriteRender(x, y, screen, flag );
-		screen.renderBackground();
+//		screen.renderBackground();
+//		screen.renderLevel();
+		screen.tryy();
+		player_pacman.renderMob();
+		
+		
+		
+		/* ----------------------------------------------------------------*/
 		
 		
 		
