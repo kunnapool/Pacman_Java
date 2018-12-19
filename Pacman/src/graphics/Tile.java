@@ -12,6 +12,7 @@ public class Tile {
 	
 	public static Tile grass_tile=new Tile(16, Sprite.grass_sprite);
 	public static Tile rock_tile= new Tile(16, Sprite.rock_sprite);
+	public static Tile rock2_tile= new Tile(16, Sprite.rock2_sprite);
 	public static Tile wood_tile=new Tile(16, Sprite.wood_sprite);
 	public static Tile void_tile= new Tile(16, Sprite.void_sprite);
 	

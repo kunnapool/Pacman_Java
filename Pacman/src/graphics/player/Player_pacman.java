@@ -7,7 +7,7 @@ import input.Keyboard;
 public class Player_pacman extends Mob {
 	
 	private Screen screen;
-	private static int x_pos, y_pos;
+	public static int x_pos, y_pos;
 	private Sprite sprite=Sprite.pac_right_open;
 	private boolean flip_flag=false;
 	
@@ -25,7 +25,7 @@ public class Player_pacman extends Mob {
 		
 		flip_flag=!flip_flag;
 		
-		if(key.up && y_pos>=5)
+		if(key.up && y_pos>0)
 		{
 			direction=0;
 			if (flip_flag)
@@ -34,7 +34,8 @@ public class Player_pacman extends Mob {
 				sprite=Sprite.pac_up_closed;
 			y_pos-=5;
 		}
-		if(key.down && y_pos<Screen.height-16-5)
+
+		if(key.down)
 		{
 			direction=2;
 			if (flip_flag)
@@ -43,7 +44,7 @@ public class Player_pacman extends Mob {
 				sprite=Sprite.pac_down_closed;
 			y_pos+=5;
 		}
-		if(key.left && x_pos>=5)
+		if(key.left && x_pos>0)
 		{
 			direction=3;
 			if (flip_flag)
@@ -52,7 +53,7 @@ public class Player_pacman extends Mob {
 				sprite=Sprite.pac_left_open;
 			x_pos-=5;
 		}
-		if(key.right && x_pos<Screen.width-16-5)
+		if(key.right)
 		{
 			direction=1;
 			if (flip_flag)
@@ -78,7 +79,7 @@ public class Player_pacman extends Mob {
 	 */
 	public int getYPos()
 	{
-		return x_pos;
+		return y_pos;
 	}
 	
 	protected boolean collision() {

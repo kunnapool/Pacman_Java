@@ -2,10 +2,12 @@ package graphics;
 
 import java.util.Random;
 
+
 import graphics.level.Level;
 import graphics.player.Player_pacman;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteSheet;
+import input.Keyboard;
 
 public class Screen {
 	
@@ -13,6 +15,7 @@ public class Screen {
 	 * Pixel precision
 	 */
 	public static int width, height;
+	
 	
 	private Random rand=new Random();
 	public static int rand_map[];
@@ -41,14 +44,25 @@ public class Screen {
 	 */
 	public void renderLevel(Level level, Player_pacman pac_boi)
 	{
+		
+		
 		int x_corner=pac_boi.getXPos();
 		int y_corner=pac_boi.getYPos();
 		
-		for(int y=0, ym=0;y<height && ym<height>>4;y+=16, ym++)
-		{	
 
-			for(int x=0, xm=0;x<width && xm<width>>4;x+=16, xm++)
+		int x0=x_corner>>4, y0=y_corner>>4;
+		int x1=(x_corner + width+16)>>4, y1=(y_corner + height+16)>>4;
+		
+//		System.out.println("("+x0+","+y0+")");
+//		System.out.println("("+x1+","+y1+")");
+		
+		
+		for(int y=0, ym=y0;y+16<height && ym<y1;y+=16, ym++)
+		{			
+			for(int x=0, xm=x0;x+16<width && xm<x1;x+=16, xm++)
 			{
+				if(xm<0 || xm>=level.map_tile_width || y<0 || ym>=level.map_tile_height)
+					break;
 				renderTile(level.getTile(xm, ym), x, y);
 					
 			}
@@ -64,13 +78,13 @@ public class Screen {
 	 */
 	public void renderTile(Tile tile, int xabs, int yabs)
 	{
-		
 		for(int y=0;y<tile.SIZE;y++)
 		{
 			int y_screen= yabs + y;
 			for(int x=0;x<tile.SIZE;x++)
 			{
 				int x_screen= xabs + x;
+				
 				screen_pixels[x_screen+y_screen*width]=tile.tile_pixels[x+y*tile.SIZE];
 				
 			}
@@ -86,16 +100,22 @@ public class Screen {
 	 */
 	public void renderSprite(int x_abs, int y_abs, Sprite sprite)
 	{
+		
+		if(x_abs>=width/2)
+			x_abs=width/2;
+		
+		if(y_abs>=height/2)
+			y_abs=height/2;
 	
-			for(int y=0;y<sprite.height;y++)
+		for(int y=0;y<sprite.height;y++)
+		{
+			for(int x=0;x<sprite.width;x++)
 			{
-				for(int x=0;x<sprite.width;x++)
-				{
-					int col=sprite.sprite_pixels[x+y*sprite.width];
-					if(col!=0)
-						screen_pixels[(x_abs + x) + (y + y_abs) * width]=col;
-				}
+				int col=sprite.sprite_pixels[x+y*sprite.width];
+				if(col!=0)
+					screen_pixels[(x_abs + x) + (y + y_abs) * width]=col;
 			}
+		}
 	}
 	
 	/**
@@ -106,6 +126,7 @@ public class Screen {
 		for(int i=0;i<screen_pixels.length;i++)
 			screen_pixels[i]=0;
 	}
+	
 	
 	
 }

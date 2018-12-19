@@ -4,12 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener {
-public boolean up, down, left, right;
+public static boolean up, down, left, right;
+
 private boolean id[]=new boolean[120];
 	
 	public Keyboard()
 	{
-		
+		up=down=right=left=false;
 	}
 	
 	public void update()

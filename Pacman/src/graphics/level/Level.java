@@ -20,7 +20,7 @@ public class Level {
 //	public static Level lvl=new Level(100, 100, "/levels/level1.png");
 	
 	
-	public static Level level=new Level(16, 16, "/levels/level.png");
+	public static Level level=new Level(40, 75, "/levels/spawn.png");
 	
 	
 	public Level(int w_t, int h_t, String path)
@@ -44,14 +44,14 @@ public class Level {
 	 */
 	public Tile getTile(int x_tile, int y_tile)
 	{
-		if((x_tile+y_tile*map_tile_width<256))
+		if((x_tile+y_tile*map_tile_width<map_tile_height*map_tile_width))
 		{
 			if( map_tiles[x_tile+y_tile*map_tile_width]==0xff00ff00 )
 				return Tile.grass_tile;
-			else if( map_tiles[x_tile+y_tile*map_tile_width]==0xffffff00 )
+			else if( map_tiles[x_tile+y_tile*map_tile_width]==0xff808080 )
+				return Tile.rock2_tile;
+			else if( map_tiles[x_tile+y_tile*map_tile_width]==0xff724715 )
 				return Tile.wood_tile;
-			else if( map_tiles[x_tile+y_tile*map_tile_width]==0xff7f7f00 )
-				return Tile.void_tile;
 			else 
 				return Tile.void_tile;
 		}

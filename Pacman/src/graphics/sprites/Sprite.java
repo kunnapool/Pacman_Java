@@ -22,7 +22,8 @@ public class Sprite {
 	public static final Sprite grass_sprite=new Sprite(16, 16, SpriteSheet.spawn_level,16,0);
 	public static final Sprite rock_sprite=new Sprite(16, 16, SpriteSheet.spawn_level,0,16);
 	public static final Sprite wood_sprite=new Sprite(16, 16, SpriteSheet.spawn_level,16,16);
-	public static final Sprite void_sprite=new Sprite(16, 16, SpriteSheet.spawn_level,0, 32);
+	public static final Sprite rock2_sprite=new Sprite(16, 16, SpriteSheet.spawn_level,0,32);
+	public static final Sprite void_sprite=new Sprite(16, 16, SpriteSheet.spawn_level,32, 0);
 	
 	
 	public static void reverseSprite(Sprite sprite)

@@ -1,4 +1,5 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -122,8 +123,8 @@ public class Game extends Canvas implements Runnable {
 			long now = System.currentTimeMillis();
 			delta+=now-last;
 			
-			//10 times a sec
-			if(delta>=100)
+			//60 times a sec
+			if(delta>=60)
 			{
 				updateLogic();
 				delta=0;
@@ -186,6 +187,8 @@ public class Game extends Canvas implements Runnable {
 		/* Convert into a writable pixel format */
 		Graphics g=graphics_buffer.getDrawGraphics();
 		g.drawImage(image, 0,0, getWidth(), getHeight(), null);
+		g.setColor(Color.WHITE);
+		g.drawString("("+pac_boi.getXPos()+", "+pac_boi.getYPos()+")", 16, 16);
 		g.dispose();
 		
 		graphics_buffer.show();
