@@ -11,6 +11,8 @@ public class Tile {
 	
 	
 	public static Tile grass_tile=new Tile(16, Sprite.grass_sprite);
+	public static Tile rock_tile= new Tile(16, Sprite.rock_sprite);
+	public static Tile wood_tile=new Tile(16, Sprite.wood_sprite);
 	public static Tile void_tile= new Tile(16, Sprite.void_sprite);
 	
 	
@@ -28,7 +30,7 @@ public class Tile {
 	
 	public void renderTile(Tile tile, int xabs, int yabs, Screen screen)
 	{
-		screen.renderTile(this, xabs, yabs);
+		screen.renderTile(this, xabs>>4, yabs>>4);
 	}
 	
 

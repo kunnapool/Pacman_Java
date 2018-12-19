@@ -8,6 +8,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import graphics.Screen;
+import graphics.level.Level;
 import graphics.player.Player_pacman;
 import graphics.sprites.Sprite;
 import input.Keyboard;
@@ -37,7 +38,7 @@ public class Game extends Canvas implements Runnable {
 	private JFrame game_frame;
 	private Screen screen=new Screen(game_width, game_height);
 	private Keyboard key_presses;
-	Player_pacman player_pacman;
+	Player_pacman pac_boi;
 	
 	
 	
@@ -66,7 +67,7 @@ public class Game extends Canvas implements Runnable {
 		addKeyListener(key_presses);
 		
 		
-		player_pacman=new Player_pacman(x, y, screen);
+		pac_boi=new Player_pacman(x, y, screen);
 
 		startThread(); // --> this inturn call thread.start which calls runGame()
 		
@@ -142,7 +143,7 @@ public class Game extends Canvas implements Runnable {
 	public void updateLogic()
 	{
 		key_presses.update();
-		player_pacman.updatePosition(key_presses);
+		pac_boi.updatePosition(key_presses);
 		
 	}
 
@@ -168,9 +169,9 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clearScreen();
 //		screen.renderBackground();
-//		screen.renderLevel();
-		screen.tryy();
-		player_pacman.renderMob();
+		screen.renderLevel(Level.level, pac_boi);
+//		screen.tryy();
+		pac_boi.renderMob();
 		
 		
 		

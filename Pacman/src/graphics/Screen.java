@@ -3,12 +3,15 @@ package graphics;
 import java.util.Random;
 
 import graphics.level.Level;
+import graphics.player.Player_pacman;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteSheet;
 
 public class Screen {
 	
-	
+	/**
+	 * Pixel precision
+	 */
 	public static int width, height;
 	
 	private Random rand=new Random();
@@ -31,40 +34,25 @@ public class Screen {
 	}
 	
 	
-	public void tryy()
-	{
-		for(int y=0;y<16;y++)
-		{
-			for(int x=0;x<16;x++)
-			{
-				screen_pixels[x+y*width]=Sprite.pac_down_closed.sprite_pixels[x+y*16];
-			}
-		}
-	}
-	
 	/**
-	 * Draw pixels onto the screen
+	 * Renders level.
+	 * Goes though all the tiles present in the level and draws accordingly
+	 * @param level Level to render
 	 */
-	public void renderBackground()
+	public void renderLevel(Level level, Player_pacman pac_boi)
 	{
+		int x_corner=pac_boi.getXPos();
+		int y_corner=pac_boi.getYPos();
+		
 		for(int y=0, ym=0;y<height && ym<height>>4;y+=16, ym++)
-		{
+		{	
+
 			for(int x=0, xm=0;x<width && xm<width>>4;x+=16, xm++)
 			{
-				if(rand_map[xm+ym*width>>4]==0)
-					renderTile(Tile.grass_tile, x, y);
-				else
-					renderTile(Tile.void_tile, x, y);
+				renderTile(level.getTile(xm, ym), x, y);
 					
 			}
 		}
-	}
-	
-	
-	public void renderLevel()
-	{
-		for(int i=0;i<Level.lvl.map_pixels.length;i++)
-			screen_pixels[i]=Level.lvl.map_pixels[i];
 	}
 	
 	
@@ -90,7 +78,12 @@ public class Screen {
 		
 	}
 	
-	
+	/**
+	 * Renders the 'player' onto the screen
+	 * @param x_abs The absolute x pixel value on the screen
+	 * @param y_abs The absolute y pixel value on the screen
+	 * @param sprite The 'player' to draw
+	 */
 	public void renderSprite(int x_abs, int y_abs, Sprite sprite)
 	{
 	
@@ -105,6 +98,9 @@ public class Screen {
 			}
 	}
 	
+	/**
+	 * Clears screen -- black
+	 */
 	public void clearScreen()
 	{
 		for(int i=0;i<screen_pixels.length;i++)

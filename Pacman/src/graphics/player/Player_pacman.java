@@ -7,7 +7,7 @@ import input.Keyboard;
 public class Player_pacman extends Mob {
 	
 	private Screen screen;
-	public static int x_pos, y_pos;
+	private static int x_pos, y_pos;
 	private Sprite sprite=Sprite.pac_right_open;
 	private boolean flip_flag=false;
 	
@@ -61,9 +61,24 @@ public class Player_pacman extends Mob {
 				sprite=Sprite.pac_right_closed;
 			x_pos+=5;
 		}
-
-		
-		
+	}
+	
+	
+	/**
+	 * @return Absolute x position of player (pixel precision)
+	 */
+	public int getXPos()
+	{
+		return x_pos;
+	}
+	
+	/**
+	 * 
+	 * @return Absolute y position of player (pixel precision)
+	 */
+	public int getYPos()
+	{
+		return x_pos;
 	}
 	
 	protected boolean collision() {
